@@ -1,0 +1,62 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Said
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container-fluid bg-light h-100">
+    <div class="row h-100 ">
+        <div class="col-2  bg-white list-group p-0">
+            <nav class="nav my-3 flex-column nav-pills">
+                <a href="/admin"
+                   class="list-group-item list-group-item-action rounded-0 border-0" th:each="role : ${authUser.roles}"
+                   th:object="${role}"
+                   th:if="${role.name.equalsIgnoreCase('admin')}">
+                    Admin</a>
+                <a class="nav-link active" data-toggle="tab" href="#">User</a>
+            </nav>
+        </div>
+        <div class="col-10 bg-light h-100 border">
+
+            <div class="my-2 mx-2">
+                <h1 class="py-2">User information-page</h1>
+                <div class="border bg-light">
+                    <h5 class="my-3 mx-3">About user</h5>
+                    <table class="mb-0 table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td readonly scope="row" th:utext="${authUser.id}"></td>
+                            <td readonly th:utext="${authUser.name}"></td>
+                            <td readonly th:utext="${authUser.email}"></td>
+                            <td readonly>
+                                <th:block th:each="role:${authUser.roles}">
+                                    <span th:utext="${role.name}"></span>
+                                </th:block>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

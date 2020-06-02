@@ -1,0 +1,209 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Said
+  Date: 004. 04.04.2020
+  Time: 3:55
+  To change this template use File | Settings | File Templates.
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container-fluid bg-light h-100">
+    <div class="row h-100 ">
+        <div class="col-2  bg-white list-group p-0">
+            <nav class="nav my-3 flex-column nav-pills">
+                <a href="/admin/"
+                   class="list-group-item list-group-item-action rounded-0 border-0 active">
+                    Admin</a>
+                <a href="/user"
+                   class="list-group-item list-group-item-action rounded-0 border-0 bg-light text-primary">User</a>
+            </nav>
+        </div>
+        <div class="col-10 bg-light h-100 border">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#usersTable" role="tab" aria-controls="home" aria-selected="true">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#newUser" role="tab" aria-controls="profile" aria-selected="false">New user</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="usersTable" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="container ml-0"><!--
+                        <div th:if ="${not #lists.isEmpty(userList)}">-->
+                            <div class="my-2 mx-2">
+                                <div class="border bg-light">
+                                    <h5 class="my-3 mx-3">All user</h5>
+                                </div>
+                                <table class="table table-striped table-hover bg-white">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Login</th>
+                                        <th>Роли</th>
+                                        <th>Редактировать</th>
+                                        <th>Удалить</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="newUser" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="container ml-0">
+                        <div class="my-2 mx-2">
+                            <div class="border bg-light">
+                                <h5 class="my-3 mx-3">New user</h5>
+                            </div>
+
+                            <form id="add_form" method="post">
+                                <div class="py-3 bg-white">
+                                    <div class="col-4 m-auto text-center font-weight-bold">
+                                        First name
+                                        <input type="text" name="name" class="form-control" id="newUserName"></div>
+                                </div>
+
+                                <div class="bg-white ">
+                                    <div class="col-4 m-auto text-center font-weight-bold">
+                                        Email
+                                        <input type="text" name="email" class="form-control" id="newUserEmail"></div>
+                                </div>
+                                <div class="py-3 bg-white ">
+                                    <div class="col-4 m-auto text-center font-weight-bold">
+                                        login
+                                        <input type="text" name="login" class="form-control" id="newUserLogin"></div>
+                                </div>
+                                <div class="py-3 bg-white ">
+                                    <div class="col-4 m-auto text-center font-weight-bold">
+                                        Password
+                                        <input type="password" name="password" class="form-control" id="newUserPass"></div>
+                                </div>
+                                <div class="bg-white ">
+                                    <div class="pb-3 col-4 m-auto text-center font-weight-bold">
+                                        Role
+                                        <select class="custom-select form-control form-select-input" name="useRole" multiple size="2">
+                                            <option>ADMIN</option>
+                                            <br>
+                                            <option>USER</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-success mt-3">Add new user</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editUserModal"
+                 tabindex="-1"
+                 role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title"
+                                id="exampleModalLabel"></h5>
+                            <button type="button" class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-group-input" id="editUserForm">
+                                <b class="d-flex justify-content-center">ID:</b>
+                                <input id="hidEditID"
+                                       type="text" name="id"
+                                       class="form-control"
+                                       value="" placeholder="Login" readonly/>
+                                <!--                                            <input id="hidEditPASS" type="hidden" name="oldPass" value="">-->
+
+                                <b class="d-flex justify-content-center">Name:</b>
+                                <input id="editName"
+                                       type="text" name="name"
+                                       class="form-control"
+                                       value="NAME">
+                                <b class="d-flex justify-content-center">Email:</b>
+                                <input id="editEmail"
+                                       type="text" name="email"
+                                       class="form-control"
+                                       value="EMAIL"/>
+                                <b class="d-flex justify-content-center">Login:</b>
+                                <input id="editLogin"
+                                       type="text" name="login"
+                                       class="form-control"
+                                       value="LOGIN"/>
+                                <b class="d-flex justify-content-center">Password:</b>
+                                <input id="editPass"
+                                       type="password"
+                                       name="newPass" class="form-control"
+                                       value=""><br/>
+                                <div class="form-row">
+
+                                    <div class="col-6 px-4" id="role">
+                                        <div class="row ">Role</div>
+                                        <div class="row px-4">
+                                            <input class="form-check-input" type="checkbox" name="role"
+                                                   value="ADMIN" id="admEdit">
+                                            <label class="form-check-label" for="admEdit">Admin</label>
+                                        </div>
+                                        <div class="row px-4">
+                                            <input class="form-check-input" type="checkbox" name="role"
+                                                   value="USER" id="usEdit">
+                                            <label class="form-check-label" for="usEdit">User</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="dismissModal"
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit"
+                                            class="btn btn-primary">Save changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <hr>
+        </div>
+    </div>
+</div>
+<div th:insert="blocks/footer :: footer"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="/js/jquery.json.js"></script>
+<script src="/js/scripts.js"></script>
+<link rel="shortcut icon" href="/js/favicon.ico" type="image/x-icon">
+
+</body>
+</html>

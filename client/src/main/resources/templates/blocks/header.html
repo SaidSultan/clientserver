@@ -1,0 +1,31 @@
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <span class="navbar-brand" >
+            <strong th:text="${authUser.name}" ></strong>
+            <td>with role:</td>
+            <td>
+                <th:block th:each="role:${authUser.roles}">
+                    <span th:text="${role.name}" ></span>
+                </th:block>
+
+            </td>
+            </span>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+
+                </li>
+                <li class="nav-item">
+
+                </li>
+                <li class="nav-item">
+
+                </li>
+            </ul>
+            <a class="btn btn-outline-primary" href="/logout">Logout</a>
+        </div>
+    </nav>
+</div>

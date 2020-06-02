@@ -1,0 +1,37 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Said
+-->
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        .marg {
+        margin-top: 10px;}
+    </style>
+</head>
+<body>
+
+<div th:if="${error}" class="alert alert-danger alet" role="alert"><p>Логин или пароль введены неверно</p></div>
+
+<div>Please login</div>
+<div>
+    <form action="/login" method="post">
+        <label for="login">Логин:
+            <input type="text" id="login" name="login" class="marg">
+        </label><br>
+        <label for="password" >Парол:
+            <input type="password" id="password" name="password" class="marg">
+        </label><br>
+        <label for="remember-me" class="marg">
+            <input type="checkbox" id="remember-me" name="remember-me" class="marg">Запомнить
+        </label><br>
+        <input type="submit" value="Login" class="marg">
+    </form>
+</div>
+</body>
+</html>
